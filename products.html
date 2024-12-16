@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link rel="icon" href="icon (2).png">
+    <link href='https://fonts.googleapis.com/css?family=Inknut Antiqua' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <style>
+        body{
+            background-color: #1f2c1f;
+        }
+        .custom-card {
+      background: linear-gradient(135deg, #2b2d31, #414449); /* Gradient Background */
+      color: #fff;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .custom-card .card-title {
+      font-size: 14px;
+      font-family: 'Inknut Antiqua', serif;
+      margin: 0;
+    }
+
+    .custom-card .icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .custom-card .card-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .custom-card .stats {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stats .badge {
+      padding: 5px 8px;
+      font-size: 12px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .stats .positive {
+      background-color: #28a745; /* Green */
+    }
+
+    .stats .negative {
+      background-color: #dc3545; /* Red */
+    }
+    .stats .warning {
+      background-color: #e1c10e; /* Yellow */
+    }
+    .chart-placeholder {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      opacity: 0.7;
+    }
+     /* Custom Styles */
+     .custom-card {
+      background: #2c3a2e;
+      color: #fff;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .custom-card h5 {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .custom-dropdown {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+
+    .legend-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .legend-container span {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .legend-container span::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-right: 5px;
+      border-radius: 50%;
+    }
+
+    .legend-available::before {
+      background-color: #4CAF50; /* Green */
+    }
+
+    .legend-out::before {
+      background-color: #03A9F4; /* Blue */
+    }
+
+    .legend-low::before {
+      background-color: #FF9800; /* Orange */
+    }
+
+    .legend-expired::before {
+      background-color: #F44336; /* Red */
+    }
+    </style>
+       <nav class="navbar navbar-expand-lg" >
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html" style="color: #fff;">Inventory</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #fff;">
+            <span class="navbar-toggler-icon" style="color: #fff;"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0" >
+              <li class="nav-item" >
+                <a class="nav-link active" aria-current="page" href="index.html" style="color: #fff;">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" style="color: #fff;">Inventory</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" style="color: #fff;">Sales</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" style="color: #fff;">Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" style="color: #fff;">Report</a>
+              </li>
+              
+            </ul>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-warning" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      
+     <!-- Section -->
+<section style="background-color: #1f2c1f; padding: 20px; color: white; font-family: Arial, sans-serif;">
+  <div class="container">
+    <div class="row">
+      <!-- Main Card -->
+      <div class="col-12 col-lg-9 mb-3">
+        <div class="card h-100 p-4" style="background-color: #2c3a2e; border-radius: 15px; color: #fff;">
+          <div class="card-body d-flex align-items-center justify-content-between">
+            <!-- Text Content -->
+            <div>
+              <h5 style="font-size: 22px;">
+                Here's what happened with <br> your pharmacy order last week
+              </h5>
+              <div class="d-flex align-items-center mt-2">
+                <h2 style="color: #fdb827; font-size: 48px; margin: 0;">1879</h2>
+                <span style="margin-left: 10px; font-size: 16px; opacity: 0.8;">Order Successfully Delivered.</span>
+              </div>
+           <a href="reports.html"><button class="btn btn-dark rounded-pill px-4 mt-3">
+            View Reports <span style="margin-left: 5px;">➔</span>
+          </button></a>   
+            </div>
+            <!-- Image -->
+            <div>
+              <img src="1.webp" alt="Delivery" style="width: 200px; max-width: 100%; height: auto;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stock Chart Card -->
+      <div class="col-12 col-lg-3 mb-3">
+        <div class="card h-100 p-3" style="background-color: #2c3a2e; border-radius: 15px; color: #fff;">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>Stock</h5>
+            <select class="form-select form-select-sm" style="width: auto; background-color: #344233; color: white;">
+              <option>Week</option>
+              <option>Month</option>
+              <option>Year</option>
+            </select>
+          </div>
+          <canvas id="stockChart" height="180" class="mt-3"></canvas>
+          <div class="legend-container mt-3 d-flex flex-wrap justify-content-around">
+            <span style="color: #44d16e;">● Available Stock</span>
+            <span style="color: #3b82f6;">● Out of Stock</span>
+            <span style="color: #f59e0b;">● Low Stock</span>
+            <span style="color: #ef4444;">● Expired Stock</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row">
+      <!-- Total Orders -->
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card p-3" style="background-color: #2c3a2e; border-radius: 15px; color: #fff;">
+          <div class="d-flex align-items-center mb-2">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/order.png" alt="icon">
+            <h5 class="ms-2 mb-0">Total Orders</h5>
+          </div>
+          <h3 class="mb-2">123,254</h3>
+          <div>
+            <span style="color: #44d16e;">▲ 22.7%</span> <span style="opacity: 0.7;">+158 Today</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending Orders -->
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card p-3" style="background-color: #2c3a2e; border-radius: 15px; color: #fff;">
+          <div class="d-flex align-items-center mb-2">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/error.png" alt="icon">
+            <h5 class="ms-2 mb-0">Pending Orders</h5>
+          </div>
+          <h3 class="mb-2">897</h3>
+          <div>
+            <span style="color: #ef4444;">▼ 18.7%</span> <span style="opacity: 0.7;">-47 Today</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delivery Shipments -->
+      <div class="col-12 col-md-4 mb-3">
+        <div class="card p-3" style="background-color: #2c3a2e; border-radius: 15px; color: #fff;">
+          <div class="d-flex align-items-center mb-2">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/delivery.png" alt="icon">
+            <h5 class="ms-2 mb-0">Delivery Shipments</h5>
+          </div>
+          <h3 class="mb-2">78</h3>
+          <div>
+            <span style="color: #44d16e;">▲ 12.7%</span> <span style="opacity: 0.7;">+14 Today</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+      <section>
+        <div class="container text-center">
+          <div class="row justify-content-start">
+            <!-- Chart Card -->
+      <div class="col-12 col-lg-6 mb-3">
+        <div class="card custom-card h-100 p-4">
+          <div class="card-body" style="background-color: #2c3a2e;">
+            <!-- <h5 class="card-title">Line Chart</h5> -->
+            <!-- Chart Canvas -->
+            <canvas id="myChart" style="width:100%; max-width:700px;"></canvas>
+          </div>
+        </div>
+      </div>
+            <div class="col-12 col-lg-6 mb-3">
+              <div class="card custom-card h-100 ">
+                <div class="container mt-4" >
+                  <h3 class="text-center">Recent Orders</h3>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-striped text-center">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th>Product</th>
+                          <th>Batch No.</th>
+                          <th>Quantity</th>
+                          <th>Price</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>P1</td>
+                          <td>101</td>
+                          <td>435</td>
+                          <td>456</td>
+                          <td>
+                            <button class="btn btn-success btn-sm">Failed</button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>P2</td>
+                          <td>102</td>
+                          <td>435</td>
+                          <td>456</td>
+                          <td>
+                            <button class="btn btn-warning btn-sm">Ongoing</button>
+                          </td>
+                        </tr>  
+                        <tr>
+                          <td>P2</td>
+                          <td>102</td>
+                          <td>435</td>
+                          <td>456</td>
+                          <td>
+                            <button class="btn btn-danger btn-sm">Failed</button>
+                          </td>
+                        </tr>  
+                      
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+     
+    <!-- Chart.js Script -->
+  <script>
+    const ctx = document.getElementById('stockChart').getContext('2d');
+    const stockChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Available Stock', 'Out of Stock', 'Low Stock', 'Expired Stock'],
+        datasets: [
+          {
+            data: [50, 20, 15, 15], // Adjust percentages as needed
+            backgroundColor: ['#4CAF50', '#03A9F4', '#FF9800', '#F44336'], // Colors
+            borderColor: '#2b2d31',
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false, // Hide default legend, we added custom legend
+          },
+          tooltip: {
+            backgroundColor: '#fff',
+            titleColor: '#000',
+            bodyColor: '#000',
+          },
+        },
+      },
+    });
+  </script>
+  <!-- Chart.js Script -->
+  <script>
+    // Data for the chart
+    const xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+    const yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+
+    // Create Chart
+    new Chart("myChart", {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+          label: "My Line Chart", // Optional label for the chart
+          backgroundColor: "rgba(0,0,255,0.1)", // Fill under line
+          borderColor: "rgba(0,0,255,1.0)", // Line color
+          borderWidth: 2,
+          pointRadius: 4,
+          pointBackgroundColor: "rgba(0,0,255,1.0)", // Point color
+          fill: true,
+          data: yValues
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            position: "top"
+          }
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: "X-axis Label"
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "Y-axis Label"
+            }
+          }
+        }
+      }
+    });
+  </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
