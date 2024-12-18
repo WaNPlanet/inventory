@@ -13,6 +13,7 @@
     <style>
         body{
             background-color: #1f2c1f;
+            font-family: 'Cormorant Upright';
         }
         .custom-card {
       background: linear-gradient(135deg, #2b2d31, #414449); /* Gradient Background */
@@ -28,7 +29,7 @@
 
     .custom-card .card-title {
       font-size: 14px;
-      font-family: 'Inknut Antiqua', serif;
+      /* font-family: 'Inknut Antiqua', serif; */
       margin: 0;
     }
 
@@ -134,28 +135,27 @@
       background-color: #F44336; /* Red */
     }
     </style>
-       <nav class="navbar navbar-expand-lg" >
+    <div class="container">
+      <nav class="navbar navbar-expand-lg" >
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html" style="color: #fff;">Inventory</a>
+          <a class="navbar-brand" href="dashbaord.html" style="color: #fff;">Inventory</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #fff;">
             <span class="navbar-toggler-icon" style="color: #fff;"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0" >
               <li class="nav-item" >
-                <a class="nav-link active" aria-current="page" href="index.html" style="color: #fff;">Dashboard</a>
+                <a class="nav-link active" aria-current="page" href="dashbaord.html" style="color: #fff;">Dashboard</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" style="color: #fff;">Inventory</a>
+                <a class="nav-link" href="inventory.html" style="color: #fff;">Inventory</a>
+              </li>
+             
+              <li class="nav-item">
+                <a class="nav-link" href="orders.html" style="color: #fff;">Orders</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" style="color: #fff;">Sales</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" style="color: #fff;">Orders</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" style="color: #fff;">Report</a>
+                <a class="nav-link" href="reports.html" style="color: #fff;">Report</a>
               </li>
               
             </ul>
@@ -166,9 +166,11 @@
           </div>
         </div>
       </nav>
+    </div>
+       
       
      <!-- Section -->
-<section style="background-color: #1f2c1f; padding: 20px; color: white; font-family: Arial, sans-serif;">
+<section style="background-color: #1f2c1f; padding: 20px; color: white;">
   <div class="container">
     <div class="row">
       <!-- Main Card -->
